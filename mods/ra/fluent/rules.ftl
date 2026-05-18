@@ -76,6 +76,12 @@ faction-ukraine =
      Special Ability: Parabombs
      Special Unit: Demolition Truck
 
+faction-chaos =
+    .name = Chaos Coalition
+    .description = Chaos Coalition: Combined Arms
+     Builds both Allied and Soviet technology.
+     No faction restrictions on units or buildings.
+
 faction-random =
     .name = Any
     .description = Random Country

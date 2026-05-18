@@ -1,4 +1,4 @@
-MINV:
+﻿MINV:
 	Inherits: ^Mine
 	RenderSprites:
 		Image: minv
@@ -52,56 +52,56 @@ CRATE:
 	GiveUnitCrateAction@jeep:
 		SelectionShares: 6
 		Units: jeep
-		ValidFactions: allies, england, france, germany
+		ValidFactions: allies, england, france, germany, chaos
 		Prerequisites: techlevel.low
 	GiveUnitCrateAction@1tnk:
 		SelectionShares: 6
 		Units: 1tnk
-		ValidFactions: allies, england, france, germany
+		ValidFactions: allies, england, france, germany, chaos
 		Prerequisites: techlevel.low
 	GiveUnitCrateAction@apc:
 		SelectionShares: 6
 		Units: apc
-		ValidFactions: soviet, russia, ukraine
+		ValidFactions: soviet, russia, ukraine, chaos
 		Prerequisites: techlevel.low
 	GiveUnitCrateAction@ftrk:
 		SelectionShares: 6
 		Units: ftrk
-		ValidFactions: soviet, russia, ukraine
+		ValidFactions: soviet, russia, ukraine, chaos
 		Prerequisites: techlevel.low
 	GiveUnitCrateAction@arty:
 		SelectionShares: 5
 		Units: arty
-		ValidFactions: allies, england, france, germany
+		ValidFactions: allies, england, france, germany, chaos
 		Prerequisites: techlevel.medium, dome
 	GiveUnitCrateAction@v2rl:
 		SelectionShares: 5
 		Units: v2rl
-		ValidFactions: soviet, russia, ukraine
+		ValidFactions: soviet, russia, ukraine, chaos
 		Prerequisites: techlevel.medium, dome
 	GiveUnitCrateAction@2tnk:
 		SelectionShares: 4
 		Units: 2tnk
-		ValidFactions: allies, england, france, germany
+		ValidFactions: allies, england, france, germany, chaos
 		Prerequisites: techlevel.medium, fix
 	GiveUnitCrateAction@3tnk:
 		SelectionShares: 4
 		Units: 3tnk
-		ValidFactions: soviet, russia, ukraine
+		ValidFactions: soviet, russia, ukraine, chaos
 		Prerequisites: techlevel.medium, fix
 	GiveUnitCrateAction@squadlight:
 		SelectionShares: 10
 		Units: e1,e1,e1,e3,e3
-		ValidFactions: allies, england, france, germany, soviet, russia, ukraine
+		ValidFactions: allies, england, france, germany, soviet, russia, ukraine, chaos
 	GiveUnitCrateAction@squadheavyallies:
 		SelectionShares: 7
 		Units: e1,e1,e1,e1,e3,e3,e3,e6,medi
-		ValidFactions: allies, england, france, germany
+		ValidFactions: allies, england, france, germany, chaos
 		TimeDelay: 4500
 	GiveUnitCrateAction@squadheavysoviet:
 		SelectionShares: 7
 		Units: e1,e1,e4,e4,e3,e3,e3,e6
-		ValidFactions: soviet, russia, ukraine
+		ValidFactions: soviet, russia, ukraine, chaos
 		TimeDelay: 4500
 	GrantExternalConditionCrateAction@invuln:
 		SelectionShares: 5
@@ -112,37 +112,37 @@ CRATE:
 	GiveUnitCrateAction@lst:
 		SelectionShares: 6
 		Units: lst
-		ValidFactions: allies, england, france, germany, soviet, russia, ukraine
+		ValidFactions: allies, england, france, germany, soviet, russia, ukraine, chaos
 		Prerequisites: techlevel.low
 	GiveUnitCrateAction@pt:
 		SelectionShares: 6
 		Units: pt
-		ValidFactions: allies, england, france, germany
+		ValidFactions: allies, england, france, germany, chaos
 		Prerequisites: techlevel.low
 	GiveUnitCrateAction@ss:
 		SelectionShares: 4
 		Units: ss
-		ValidFactions: soviet, russia, ukraine
+		ValidFactions: soviet, russia, ukraine, chaos
 		Prerequisites: techlevel.low
 	GiveUnitCrateAction@dd:
 		SelectionShares: 4
 		Units: dd
-		ValidFactions: allies, england, france, germany
+		ValidFactions: allies, england, france, germany, chaos
 		Prerequisites: techlevel.medium, dome
 	GiveUnitCrateAction@ss2:
 		SelectionShares: 4
 		Units: ss
-		ValidFactions: soviet, russia, ukraine
+		ValidFactions: soviet, russia, ukraine, chaos
 		Prerequisites: techlevel.medium, dome
 	GiveUnitCrateAction@ca:
 		SelectionShares: 3
 		Units: ca
-		ValidFactions: allies, england, france, germany
+		ValidFactions: allies, england, france, germany, chaos
 		Prerequisites: techlevel.high, atek
 	GiveUnitCrateAction@msub:
 		SelectionShares: 3
 		Units: msub
-		ValidFactions: soviet, russia, ukraine
+		ValidFactions: soviet, russia, ukraine, chaos
 		Prerequisites: techlevel.high, stek
 
 
