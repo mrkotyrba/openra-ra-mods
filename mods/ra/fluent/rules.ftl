@@ -627,6 +627,27 @@ actor-armlab =
       Grants all combat vehicles +50% firepower.
       Requires: War Factory + Tech Center.
 
+actor-inflab =
+    .name = Infantry Combat School
+    .description =
+    Elite infantry training program.
+      Grants all infantry units +50% firepower.
+      Requires: Barracks + Tech Center.
+
+actor-airlab =
+    .name = Air Superiority Center
+    .description =
+    Advanced aviation weapons research.
+      Grants all aircraft +50% firepower.
+      Requires: Airfield + Tech Center.
+
+actor-navlab =
+    .name = Naval Weapons Lab
+    .description =
+    Naval weapons development facility.
+      Grants all ships +50% firepower.
+      Requires: Naval Yard + Tech Center.
+
 actor-atek =
     .name = Allied Tech Center
     .description =

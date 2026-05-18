@@ -331,6 +331,12 @@
 	Inherits@bounty: ^GlobalBounty
 	Inherits@selection: ^SelectableCombatUnit
 	Inherits@handicaps: ^PlayerHandicaps
+	GrantConditionOnPrerequisite@INFANTRYUPGRADE:
+		Condition: infantry-upgrade
+		Prerequisites: infantry-upgrade
+	FirepowerMultiplier@INFANTRYUPGRADE:
+		RequiresCondition: infantry-upgrade
+		Modifier: 150
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -514,6 +520,12 @@
 	Inherits@bounty: ^GlobalBounty
 	Inherits@selection: ^SelectableCombatUnit
 	Inherits@handicaps: ^PlayerHandicaps
+	GrantConditionOnPrerequisite@NAVALUPGRADE:
+		Condition: naval-upgrade
+		Prerequisites: naval-upgrade
+	FirepowerMultiplier@NAVALUPGRADE:
+		RequiresCondition: naval-upgrade
+		Modifier: 150
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -591,6 +603,12 @@
 	Inherits@bounty: ^GlobalBounty
 	Inherits@selection: ^SelectableCombatUnit
 	Inherits@handicaps: ^PlayerHandicaps
+	GrantConditionOnPrerequisite@AIRUPGRADE:
+		Condition: air-upgrade
+		Prerequisites: air-upgrade
+	FirepowerMultiplier@AIRUPGRADE:
+		RequiresCondition: air-upgrade
+		Modifier: 150
 	OwnerLostAction:
 		Action: Kill
 	Armor:
