@@ -620,6 +620,13 @@ actor-sam =
       Strong vs Aircraft
       Weak vs Ground units
 
+actor-armlab =
+    .name = Armory Lab
+    .description =
+    Advanced weapons research facility.
+      Grants all combat vehicles +50% firepower.
+      Requires: War Factory + Tech Center.
+
 actor-atek =
     .name = Allied Tech Center
     .description =

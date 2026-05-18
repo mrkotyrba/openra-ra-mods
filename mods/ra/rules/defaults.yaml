@@ -241,6 +241,12 @@
 	Inherits@bounty: ^GlobalBounty
 	Inherits@selection: ^SelectableCombatUnit
 	Inherits@handicaps: ^PlayerHandicaps
+	GrantConditionOnPrerequisite@ARMORYUPGRADE:
+		Condition: armory-upgrade
+		Prerequisites: armory-upgrade
+	FirepowerMultiplier@ARMORYUPGRADE:
+		RequiresCondition: armory-upgrade
+		Modifier: 150
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
