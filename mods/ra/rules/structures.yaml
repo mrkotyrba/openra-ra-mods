@@ -1045,7 +1045,7 @@ ARMLAB:
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
 	RenderSprites:
-		Image: weap
+		Image: armlab
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -1087,7 +1087,7 @@ INFLAB:
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
 	RenderSprites:
-		Image: tent
+		Image: inflab
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -1129,7 +1129,7 @@ AIRLAB:
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
 	RenderSprites:
-		Image: hpad
+		Image: airlab
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -1171,7 +1171,7 @@ NAVLAB:
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
 	RenderSprites:
-		Image: spen
+		Image: navlab
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -1197,6 +1197,7 @@ NAVLAB:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
+	WithBuildingBib:
 	ProvidesPrerequisite:
 		Prerequisite: naval-upgrade
 	Power:

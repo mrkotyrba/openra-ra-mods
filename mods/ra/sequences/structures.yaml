@@ -893,3 +893,82 @@ cycl:
 	damaged-idle:
 		Start: 16
 		Length: 16
+
+armlab:
+	Defaults:
+		Filename: atek.shp
+	idle:
+	damaged-idle:
+		Start: 1
+	make:
+		Filename: atekmake.shp
+		Length: *
+	bib:
+		Filename: bib3.tem
+		TilesetFilenames:
+			SNOW: bib3.sno
+			DESERT: bib3.des
+		Length: *
+	icon:
+		Filename: atekicon.shp
+
+inflab:
+	Defaults:
+		Filename: hosp.shp
+	idle:
+		Length: 4
+	damaged-idle:
+		Start: 4
+		Length: 4
+	make:
+		Filename: hospmake.shp
+		Length: *
+	bib:
+		TilesetFilenames:
+			SNOW: mbHOSP.sno
+			INTERIOR: mbHOSP.int
+			TEMPERAT: mbHOSP.tem
+			DESERT: mbHOSP.des
+		Length: *
+		Offset: 0,1
+	icon:
+		Filename: hospicon.shp
+
+airlab:
+	Defaults:
+		Filename: dome.shp
+	idle:
+		Offset: 0,-4
+	damaged-idle:
+		Start: 1
+		Offset: 0,-4
+	make:
+		Filename: domemake.shp
+		Length: *
+		Offset: 0,-4
+	bib:
+		Filename: bib3.tem
+		TilesetFilenames:
+			SNOW: bib3.sno
+			DESERT: bib3.des
+		Length: *
+	icon:
+		Filename: domeicon.shp
+
+navlab:
+	Defaults:
+		Filename: stek.shp
+	idle:
+	damaged-idle:
+		Start: 1
+	make:
+		Filename: stekmake.shp
+		Length: *
+	bib:
+		Filename: bib2.tem
+		TilesetFilenames:
+			SNOW: bib2.sno
+			DESERT: bib2.des
+		Length: *
+	icon:
+		Filename: stekicon.shp
