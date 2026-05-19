@@ -253,6 +253,8 @@ SPEN:
 	ProvidesPrerequisite@ukrainianstructure:
 		RequiresPrerequisites: structures.ukraine
 		Prerequisite: ships.ukraine
+	ProvidesPrerequisite@navalyard:
+		Prerequisite: navalyard
 	ProvidesPrerequisite@buildingname:
 	MapEditorData:
 		ExcludeTilesets: INTERIOR
@@ -379,6 +381,8 @@ SYRD:
 	ProvidesPrerequisite@germanstructure:
 		RequiresPrerequisites: structures.germany
 		Prerequisite: ships.germany
+	ProvidesPrerequisite@navalyard:
+		Prerequisite: navalyard
 	ProvidesPrerequisite@buildingname:
 	MapEditorData:
 		ExcludeTilesets: INTERIOR
@@ -1040,6 +1044,8 @@ ARMLAB:
 	Inherits: ^ScienceBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
+	RenderSprites:
+		Image: weap
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -1080,12 +1086,14 @@ INFLAB:
 	Inherits: ^ScienceBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
+	RenderSprites:
+		Image: tent
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 146
-		Prerequisites: barr|tent, techcenter, ~techlevel.high
+		Prerequisites: barracks, techcenter, ~techlevel.high
 		BuildLimit: 1
 		Description: actor-inflab.description
 	Valued:
@@ -1120,12 +1128,14 @@ AIRLAB:
 	Inherits: ^ScienceBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
+	RenderSprites:
+		Image: hpad
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 147
-		Prerequisites: hpad|afld, techcenter, ~techlevel.high
+		Prerequisites: airbase, techcenter, ~techlevel.high
 		BuildLimit: 1
 		Description: actor-airlab.description
 	Valued:
@@ -1160,12 +1170,14 @@ NAVLAB:
 	Inherits: ^ScienceBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
+	RenderSprites:
+		Image: spen
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 148
-		Prerequisites: spen|syrd, techcenter, ~techlevel.high
+		Prerequisites: navalyard, techcenter, ~techlevel.high
 		BuildLimit: 1
 		Description: actor-navlab.description
 	Valued:
@@ -1185,7 +1197,6 @@ NAVLAB:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	ProvidesPrerequisite:
 		Prerequisite: naval-upgrade
 	Power:
@@ -1639,6 +1650,8 @@ HPAD:
 	ProvidesPrerequisite@germanstructure:
 		RequiresPrerequisites: structures.germany
 		Prerequisite: aircraft.germany
+	ProvidesPrerequisite@airbase:
+		Prerequisite: airbase
 	ProvidesPrerequisite@buildingname:
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
@@ -1714,6 +1727,8 @@ AFLD:
 	ProvidesPrerequisite@ukrainianstructure:
 		RequiresPrerequisites: structures.ukraine
 		Prerequisite: aircraft.ukraine
+	ProvidesPrerequisite@airbase:
+		Prerequisite: airbase
 	AirstrikePower@spyplane:
 		OrderName: SovietSpyPlane
 		Prerequisites: aircraft.soviet
