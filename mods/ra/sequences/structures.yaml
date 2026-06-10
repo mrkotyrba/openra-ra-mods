@@ -896,13 +896,17 @@ cycl:
 
 armlab:
 	Defaults:
-		Filename: atek.shp
+		Filename: alhq.shp
 	idle:
+		Offset: 0,-14
 	damaged-idle:
-		Start: 1
+		Start: 20
+		Offset: 0,-14
 	make:
-		Filename: atekmake.shp
-		Length: *
+		Filename: alhq.shp
+		Start: 1
+		Length: 19
+		Offset: 0,-14
 	bib:
 		Filename: bib3.tem
 		TilesetFilenames:
@@ -910,59 +914,16 @@ armlab:
 			DESERT: bib3.des
 		Length: *
 	icon:
-		Filename: atekicon.shp
+		Filename: alhqicon.shp
 
 inflab:
 	Defaults:
-		Filename: hosp.shp
-	idle:
-		Length: 4
-	damaged-idle:
-		Start: 4
-		Length: 4
-	make:
-		Filename: hospmake.shp
-		Length: *
-	bib:
-		TilesetFilenames:
-			SNOW: mbHOSP.sno
-			INTERIOR: mbHOSP.int
-			TEMPERAT: mbHOSP.tem
-			DESERT: mbHOSP.des
-		Length: *
-		Offset: 0,1
-	icon:
-		Filename: hospicon.shp
-
-airlab:
-	Defaults:
-		Filename: dome.shp
-	idle:
-		Offset: 0,-4
-	damaged-idle:
-		Start: 1
-		Offset: 0,-4
-	make:
-		Filename: domemake.shp
-		Length: *
-		Offset: 0,-4
-	bib:
-		Filename: bib3.tem
-		TilesetFilenames:
-			SNOW: bib3.sno
-			DESERT: bib3.des
-		Length: *
-	icon:
-		Filename: domeicon.shp
-
-navlab:
-	Defaults:
-		Filename: stek.shp
+		Filename: gtek.shp
 	idle:
 	damaged-idle:
 		Start: 1
 	make:
-		Filename: stekmake.shp
+		Filename: gtekmake.shp
 		Length: *
 	bib:
 		Filename: bib2.tem
@@ -971,4 +932,74 @@ navlab:
 			DESERT: bib2.des
 		Length: *
 	icon:
-		Filename: stekicon.shp
+		Filename: gtekicnh.shp
+
+airlab:
+	Defaults:
+		Filename: eye.shp
+	idle:
+		Length: 16
+		Tick: 100
+	damaged-idle:
+		Start: 16
+		Length: 16
+		Tick: 100
+	make:
+		Filename: eyemake.shp
+		Length: *
+		Tick: 80
+	bib:
+		Filename: bib3.tem
+		TilesetFilenames:
+			SNOW: bib3.sno
+			DESERT: bib3.des
+		Length: *
+	icon:
+		Filename: eyeicnh.shp
+
+navlab:
+	Defaults:
+		Filename: gsyrd.shp
+	idle:
+	damaged-idle:
+		Start: 1
+	make:
+		Filename: gsyrdmake.shp
+		Length: *
+	icon:
+		Filename: syrdicon.shp
+
+htur:
+	Defaults:
+		Filename: htur.shp
+	idle:
+		Filename: empty.shp
+	damaged-idle:
+		Filename: empty.shp
+	turret:
+		Filename: htur.shp
+		Facings: 32
+		UseClassicFacings: True
+	damaged-turret:
+		Filename: htur.shp
+		Start: 32
+		Facings: 32
+		UseClassicFacings: True
+	make:
+		Filename: hturmake.shp
+		Length: *
+		Tick: 75
+	muzzle:
+		Filename: smokeygun.shp
+		Length: 12
+		Tick: 30
+	bib:
+		TilesetFilenames:
+			SNOW: mbSAM.sno
+			INTERIOR: mbSAM.int
+			TEMPERAT: mbSAM.tem
+			DESERT: mbSAM.des
+		Length: *
+		Offset: 0,1
+	icon:
+		Filename: hturicon.shp

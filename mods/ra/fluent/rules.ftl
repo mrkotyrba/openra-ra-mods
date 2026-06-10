@@ -654,6 +654,13 @@ actor-navlab =
       Grants all ships +50% firepower, range and armor.
       Requires: Naval Yard + Tech Center.
 
+actor-htur =
+    .name = Grand Cannon
+    .description =
+    Long-range artillery base defense.
+      Devastating cannon with double range.
+      Requires: Tech Center + Radar Dome.
+
 actor-atek =
     .name = Allied Tech Center
     .description =

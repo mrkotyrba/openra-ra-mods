@@ -41,6 +41,18 @@
 		Name: effect
 		Filename: temperat.pal
 		ShadowIndex: 4
+	PaletteFromFile@temptd:
+		Name: temptd
+		Filename: temperattd.pal
+		ShadowIndex: 4
+	PaletteFromFile@chrometd:
+		Name: chrometd
+		Filename: temperattd.pal
+		AllowModifiers: false
+	PlayerColorPalette@TD:
+		BaseName: playertd
+		BasePalette: temptd
+		RemapIndex: 176, 178, 180, 182, 184, 186, 189, 191, 177, 179, 181, 183, 185, 187, 188, 190
 	ColorPickerPalette@colorpicker:
 		Name: colorpicker
 		BasePalette: player
