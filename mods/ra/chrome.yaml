@@ -400,6 +400,7 @@ flags:
 		RandomAllies: 226, 225, 30, 15
 		Random: 226, 241, 30, 15
 		spectator: 226, 241, 30, 15
+		chaos: 226, 241, 30, 15
 
 music:
 	Inherits: ^Glyphs
