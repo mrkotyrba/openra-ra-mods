@@ -967,7 +967,7 @@ navlab:
 		Filename: gsyrdmake.shp
 		Length: *
 	icon:
-		Filename: syrdicon.shp
+		Filename: navlabicon.shp
 
 htur:
 	Defaults:

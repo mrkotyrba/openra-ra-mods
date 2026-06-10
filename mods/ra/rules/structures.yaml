@@ -286,7 +286,7 @@ SYRD:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 40
-		Prerequisites: anypower, ~structures.allies, ~techlevel.low, !structures.chaos
+		Prerequisites: anypower, ~structures.allies, ~techlevel.low, ~!structures.chaos
 		Description: actor-syrd.description
 	Valued:
 		Cost: 1000
@@ -1263,8 +1263,13 @@ NAVLAB:
 	Tooltip:
 		Name: actor-navlab.name
 	Building:
-		Footprint: xxx xxx
-		Dimensions: 3,2
+		Footprint: XXX xxx XXX
+		Dimensions: 3,3
+		TerrainTypes: Water
+	RequiresBuildableArea:
+		AreaTypes: building
+		Adjacent: 8
+	-GivesBuildableArea:
 	Health:
 		HP: 50000
 	Armor:
@@ -1662,7 +1667,7 @@ HPAD:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 120
-		Prerequisites: dome, ~structures.allies, ~techlevel.medium, !structures.chaos
+		Prerequisites: dome, ~structures.allies, ~techlevel.medium, ~!structures.chaos
 		Description: actor-hpad.description
 	Valued:
 		Cost: 500
@@ -2004,7 +2009,7 @@ STEK:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 150
-		Prerequisites: weap, dome, ~structures.soviet, ~techlevel.high, !structures.chaos
+		Prerequisites: weap, dome, ~structures.soviet, ~techlevel.high, ~!structures.chaos
 		Description: actor-stek.description
 	Valued:
 		Cost: 1500
@@ -2217,7 +2222,7 @@ TENT:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 20
-		Prerequisites: anypower, ~structures.allies, ~techlevel.infonly, !structures.chaos
+		Prerequisites: anypower, ~structures.allies, ~techlevel.infonly, ~!structures.chaos
 		Description: actor-tent.description
 	Valued:
 		Cost: 500
