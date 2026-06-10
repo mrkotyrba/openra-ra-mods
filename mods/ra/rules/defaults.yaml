@@ -247,6 +247,12 @@
 	FirepowerMultiplier@ARMORYUPGRADE:
 		RequiresCondition: armory-upgrade
 		Modifier: 150
+	RangeMultiplier@ARMORYUPGRADE:
+		RequiresCondition: armory-upgrade
+		Modifier: 150
+	DamageMultiplier@ARMORYUPGRADE:
+		RequiresCondition: armory-upgrade
+		Modifier: 67
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -337,6 +343,12 @@
 	FirepowerMultiplier@INFANTRYUPGRADE:
 		RequiresCondition: infantry-upgrade
 		Modifier: 150
+	RangeMultiplier@INFANTRYUPGRADE:
+		RequiresCondition: infantry-upgrade
+		Modifier: 150
+	DamageMultiplier@INFANTRYUPGRADE:
+		RequiresCondition: infantry-upgrade
+		Modifier: 67
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -526,6 +538,12 @@
 	FirepowerMultiplier@NAVALUPGRADE:
 		RequiresCondition: naval-upgrade
 		Modifier: 150
+	RangeMultiplier@NAVALUPGRADE:
+		RequiresCondition: naval-upgrade
+		Modifier: 150
+	DamageMultiplier@NAVALUPGRADE:
+		RequiresCondition: naval-upgrade
+		Modifier: 67
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -609,6 +627,12 @@
 	FirepowerMultiplier@AIRUPGRADE:
 		RequiresCondition: air-upgrade
 		Modifier: 150
+	RangeMultiplier@AIRUPGRADE:
+		RequiresCondition: air-upgrade
+		Modifier: 150
+	DamageMultiplier@AIRUPGRADE:
+		RequiresCondition: air-upgrade
+		Modifier: 67
 	OwnerLostAction:
 		Action: Kill
 	Armor:

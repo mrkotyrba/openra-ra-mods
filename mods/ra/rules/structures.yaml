@@ -188,27 +188,27 @@ SPEN:
 		SpawnOffset: -1024,1024,0
 		Facing: 640
 		ExitCell: 0,2
-		ProductionTypes: Ship
+		ProductionTypes: Ship, Boat
 	Exit@b2:
 		RequiresCondition: !being-captured
 		SpawnOffset: 1024,1024,0
 		Facing: 896
 		ExitCell: 2,2
-		ProductionTypes: Ship
+		ProductionTypes: Ship, Boat
 	Exit@b3:
 		RequiresCondition: !being-captured
 		SpawnOffset: -1024,-1024,0
 		Facing: 384
 		ExitCell: 0,0
-		ProductionTypes: Ship
+		ProductionTypes: Ship, Boat
 	Exit@b4:
 		RequiresCondition: !being-captured
 		SpawnOffset: 1024,-1024,0
 		Facing: 128
 		ExitCell: 2,0
-		ProductionTypes: Ship
+		ProductionTypes: Ship, Boat
 	Production:
-		Produces: Ship, Submarine
+		Produces: Ship, Submarine, Boat
 	-SpawnActorsOnSell:
 	RepairsUnits:
 		HpPerStep: 1000
@@ -244,6 +244,12 @@ SPEN:
 	ProvidesPrerequisite@sovietstructure:
 		RequiresPrerequisites: structures.soviet
 		Prerequisite: ships.soviet
+	ProvidesPrerequisite@chaosships:
+		RequiresPrerequisites: structures.chaos
+		Prerequisite: ships.allies
+	ProvidesPrerequisite@chaossyrd:
+		RequiresPrerequisites: structures.chaos
+		Prerequisite: syrd
 	ProvidesPrerequisite@sovietvanillastructure:
 		RequiresPrerequisites: structures.sovietvanilla
 		Prerequisite: ships.sovietvanilla
@@ -280,7 +286,7 @@ SYRD:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 40
-		Prerequisites: anypower, ~structures.allies, ~techlevel.low
+		Prerequisites: anypower, ~structures.allies, ~techlevel.low, !structures.chaos
 		Description: actor-syrd.description
 	Valued:
 		Cost: 1000
@@ -1003,6 +1009,9 @@ ATEK:
 		Name: actor-atek.name
 	ProvidesPrerequisite:
 		Prerequisite: techcenter
+	ProvidesPrerequisite@chaosstek:
+		RequiresPrerequisites: structures.chaos
+		Prerequisite: stek
 	Building:
 		Footprint: xx xx ==
 		Dimensions: 2,3
@@ -1352,6 +1361,9 @@ FACT:
 	ProvidesPrerequisite@soviet:
 		Factions: soviet, russia, ukraine, chaos
 		Prerequisite: structures.soviet
+	ProvidesPrerequisite@chaos:
+		Factions: chaos
+		Prerequisite: structures.chaos
 	ProvidesPrerequisite@sovietvanilla:
 		Factions: soviet
 		Prerequisite: structures.sovietvanilla
@@ -1582,7 +1594,7 @@ HPAD:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 120
-		Prerequisites: dome, ~structures.allies, ~techlevel.medium
+		Prerequisites: dome, ~structures.allies, ~techlevel.medium, !structures.chaos
 		Description: actor-hpad.description
 	Valued:
 		Cost: 500
@@ -1697,12 +1709,17 @@ AFLD:
 		RequiresCondition: !being-captured
 		ExitCell: 1,1
 		Facing: 768
+	Exit@heli:
+		RequiresCondition: !being-captured
+		ExitCell: 1,1
+		Facing: 768
+		ProductionTypes: Helicopter
 	RallyPoint:
 		ForceSetType: Plane
 	CommandBarBlacklist:
 		DisableStop: false
 	Production:
-		Produces: Aircraft, Plane
+		Produces: Aircraft, Plane, Helicopter
 	Reservable:
 	ProvidesPrerequisite@soviet:
 		Factions: soviet, russia, ukraine
@@ -1719,6 +1736,12 @@ AFLD:
 	ProvidesPrerequisite@sovietstructure:
 		RequiresPrerequisites: structures.soviet
 		Prerequisite: aircraft.soviet
+	ProvidesPrerequisite@chaosaircraft:
+		RequiresPrerequisites: structures.chaos
+		Prerequisite: aircraft.allies
+	ProvidesPrerequisite@chaoshpad:
+		RequiresPrerequisites: structures.chaos
+		Prerequisite: hpad
 	ProvidesPrerequisite@sovietvanillastructure:
 		RequiresPrerequisites: structures.sovietvanilla
 		Prerequisite: aircraft.sovietvanilla
@@ -1913,7 +1936,7 @@ STEK:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 150
-		Prerequisites: weap, dome, ~structures.soviet, ~techlevel.high
+		Prerequisites: weap, dome, ~structures.soviet, ~techlevel.high, !structures.chaos
 		Description: actor-stek.description
 	Valued:
 		Cost: 1500
@@ -2010,6 +2033,12 @@ BARR:
 	ProvidesPrerequisite@sovietstructure:
 		RequiresPrerequisites: structures.soviet
 		Prerequisite: infantry.soviet
+	ProvidesPrerequisite@chaosinfantry:
+		RequiresPrerequisites: structures.chaos
+		Prerequisite: infantry.allies
+	ProvidesPrerequisite@chaostent:
+		RequiresPrerequisites: structures.chaos
+		Prerequisite: tent
 	ProvidesPrerequisite@sovietvanillastructure:
 		RequiresPrerequisites: structures.sovietvanilla
 		Prerequisite: infantry.sovietvanilla
@@ -2120,7 +2149,7 @@ TENT:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 20
-		Prerequisites: anypower, ~structures.allies, ~techlevel.infonly
+		Prerequisites: anypower, ~structures.allies, ~techlevel.infonly, !structures.chaos
 		Description: actor-tent.description
 	Valued:
 		Cost: 500

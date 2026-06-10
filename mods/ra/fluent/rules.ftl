@@ -627,31 +627,31 @@ actor-sam =
       Weak vs Ground units
 
 actor-armlab =
-    .name = Armory Lab
+    .name = Mobile Lab
     .description =
-    Advanced weapons research facility.
-      Grants all combat vehicles +50% firepower.
+    Advanced vehicle weapons research facility.
+      Grants all combat vehicles +50% firepower, range and armor.
       Requires: War Factory + Tech Center.
 
 actor-inflab =
-    .name = Infantry Combat School
+    .name = Infantry Lab
     .description =
     Elite infantry training program.
-      Grants all infantry units +50% firepower.
+      Grants all infantry units +50% firepower, range and armor.
       Requires: Barracks + Tech Center.
 
 actor-airlab =
-    .name = Air Superiority Center
+    .name = Air Lab
     .description =
     Advanced aviation weapons research.
-      Grants all aircraft +50% firepower.
+      Grants all aircraft +50% firepower, range and armor.
       Requires: Airfield + Tech Center.
 
 actor-navlab =
-    .name = Naval Weapons Lab
+    .name = Naval Lab
     .description =
     Naval weapons development facility.
-      Grants all ships +50% firepower.
+      Grants all ships +50% firepower, range and armor.
       Requires: Naval Yard + Tech Center.
 
 actor-atek =

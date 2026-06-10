@@ -341,7 +341,7 @@ HELI:
 	Selectable:
 		DecorationBounds: 1536, 1194
 	Rearmable:
-		RearmActors: hpad
+		RearmActors: hpad, afld
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -420,7 +420,7 @@ HIND:
 	Selectable:
 		DecorationBounds: 1621, 1365
 	Rearmable:
-		RearmActors: hpad
+		RearmActors: hpad, afld
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -537,7 +537,7 @@ MH60:
 	Selectable:
 		DecorationBounds: 1621, 1365
 	Rearmable:
-		RearmActors: hpad
+		RearmActors: hpad, afld
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
