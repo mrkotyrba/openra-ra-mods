@@ -914,7 +914,7 @@ armlab:
 			DESERT: bib3.des
 		Length: *
 	icon:
-		Filename: alhqicon.shp
+		Filename: armlabcam.shp
 
 inflab:
 	Defaults:
@@ -932,7 +932,7 @@ inflab:
 			DESERT: bib2.des
 		Length: *
 	icon:
-		Filename: gtekicnh.shp
+		Filename: inflabcam.shp
 
 airlab:
 	Defaults:
@@ -955,7 +955,7 @@ airlab:
 			DESERT: bib3.des
 		Length: *
 	icon:
-		Filename: eyeicnh.shp
+		Filename: airlabcam.shp
 
 navlab:
 	Defaults:
@@ -967,7 +967,7 @@ navlab:
 		Filename: gsyrdmake.shp
 		Length: *
 	icon:
-		Filename: syrdicon.shp
+		Filename: navlabcam.shp
 
 htur:
 	Defaults:
