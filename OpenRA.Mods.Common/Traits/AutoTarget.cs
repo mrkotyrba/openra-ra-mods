@@ -464,8 +464,11 @@ namespace OpenRA.Mods.Common.Traits
 
 				foreach (var ati in activePriorities)
 				{
-					// Already have a higher priority target
-					if (ati.Priority < chosenTargetPriority)
+					// Already have a higher priority target.
+					// When spreading fire we must still evaluate lower priorities, so that excess
+					// capacity can spill over onto a lower-priority target once the higher-priority
+					// ones are saturated with committed damage.
+					if (overkillLedger == null && ati.Priority < chosenTargetPriority)
 						continue;
 
 					// Incompatible relationship
