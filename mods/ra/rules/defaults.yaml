@@ -177,6 +177,7 @@
 ^AutoTargetGround:
 	AutoTarget:
 		AttackAnythingCondition: stance-attackanything
+		PreventOverkill: true
 	AutoTargetPriority@DEFAULT:
 		RequiresCondition: !stance-attackanything
 		ValidTargets: Infantry, Vehicle, Ship, Underwater, Defense, Mine
@@ -197,6 +198,7 @@
 
 ^AutoTargetAir:
 	AutoTarget:
+		PreventOverkill: true
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: AirborneActor
 		InvalidTargets: NoAutoTarget
@@ -204,6 +206,7 @@
 ^AutoTargetAll:
 	AutoTarget:
 		AttackAnythingCondition: stance-attackanything
+		PreventOverkill: true
 	AutoTargetPriority@DEFAULT:
 		RequiresCondition: !stance-attackanything
 		ValidTargets: Infantry, Vehicle, Ship, Underwater, AirborneActor, Defense, Mine

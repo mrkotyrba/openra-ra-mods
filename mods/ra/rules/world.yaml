@@ -164,6 +164,7 @@
 
 World:
 	Inherits: ^BaseWorld
+	AutoTargetOverkillLedger:
 	ChatCommands:
 	DevCommands:
 	DebugVisualizationCommands:

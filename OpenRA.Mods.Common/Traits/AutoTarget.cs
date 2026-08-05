@@ -13,6 +13,7 @@ using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.Mods.Common.Warheads;
 using OpenRA.Primitives;
 using OpenRA.Traits;
 
@@ -82,6 +83,15 @@ namespace OpenRA.Mods.Common.Traits
 		[Desc("Ticks to wait until next AutoTarget: attempt.")]
 		public readonly int MaximumScanTimeInterval = 8;
 
+		[Desc("Avoid piling auto-target fire onto a target that already has enough committed damage,",
+			"spreading fire across other equally-valid targets instead.",
+			"Requires the AutoTargetOverkillLedger trait on the world actor.")]
+		public readonly bool PreventOverkill = false;
+
+		[Desc("With PreventOverkill enabled: how many of this unit's shots worth of damage to reserve",
+			"against its target. Higher values make units spread out sooner, lower values focus fire more.")]
+		public readonly int OverkillReserveShots = 2;
+
 		[Desc("Display order for the stance dropdown in the map editor")]
 		public readonly int EditorStanceDisplayOrder = 1;
 
@@ -131,7 +141,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class AutoTarget : ConditionalTrait<AutoTargetInfo>, INotifyIdle, INotifyDamage, ITick, IResolveOrder, ISync, INotifyOwnerChanged
+	public class AutoTarget : ConditionalTrait<AutoTargetInfo>, INotifyIdle, INotifyDamage, ITick, IResolveOrder, ISync, INotifyOwnerChanged, INotifyActorDisposing
 	{
 		public readonly IEnumerable<AttackBase> ActiveAttackBases;
 
@@ -152,6 +162,9 @@ namespace OpenRA.Mods.Common.Traits
 		INotifyStanceChanged[] notifyStanceChanged;
 		IEnumerable<AutoTargetPriorityInfo> activeTargetPriorities;
 		int conditionToken = Actor.InvalidConditionToken;
+
+		AutoTargetOverkillLedger overkillLedger;
+		int overkillReserveAmount;
 
 		public void SetStance(Actor self, UnitStance value)
 		{
@@ -205,12 +218,36 @@ namespace OpenRA.Mods.Common.Traits
 			notifyStanceChanged = self.TraitsImplementing<INotifyStanceChanged>().ToArray();
 			ApplyStanceCondition(self);
 
+			if (Info.PreventOverkill)
+			{
+				overkillLedger = self.World.WorldActor.TraitOrDefault<AutoTargetOverkillLedger>();
+
+				var damagePerShot = 0;
+				foreach (var armament in self.TraitsImplementing<Armament>())
+					foreach (var warhead in armament.Weapon.Warheads)
+						if (warhead is DamageWarhead damageWarhead && damageWarhead.Damage > 0)
+							damagePerShot += damageWarhead.Damage;
+
+				overkillReserveAmount = damagePerShot * Info.OverkillReserveShots;
+			}
+
 			base.Created(self);
 		}
 
 		void INotifyOwnerChanged.OnOwnerChanged(Actor self, Player oldOwner, Player newOwner)
 		{
+			overkillLedger?.Release(self);
 			SetStance(self, self.Owner.IsBot || !self.Owner.Playable ? Info.InitialStanceAI : Info.InitialStance);
+		}
+
+		void INotifyActorDisposing.Disposing(Actor self)
+		{
+			overkillLedger?.Release(self);
+		}
+
+		protected override void TraitDisabled(Actor self)
+		{
+			overkillLedger?.Release(self);
 		}
 
 		void IResolveOrder.ResolveOrder(Actor self, Order order)
@@ -269,7 +306,7 @@ namespace OpenRA.Mods.Common.Traits
 
 			Aggressor = attacker;
 
-			Attack(Target.FromActor(Aggressor), AllowMove);
+			Attack(self, Target.FromActor(Aggressor), AllowMove);
 		}
 
 		void INotifyIdle.TickIdle(Actor self)
@@ -322,11 +359,21 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			var target = ScanForTarget(self, allowMove, allowTurn);
 			if (target.Type != TargetType.Invalid)
-				Attack(target, allowMove);
+				Attack(self, target, allowMove);
+			else
+				overkillLedger?.Release(self);
 		}
 
-		void Attack(in Target target, bool allowMove)
+		void Attack(Actor self, in Target target, bool allowMove)
 		{
+			if (overkillLedger != null)
+			{
+				if (target.Type == TargetType.Actor)
+					overkillLedger.Reserve(self, target.Actor, overkillReserveAmount);
+				else
+					overkillLedger.Release(self);
+			}
+
 			foreach (var ab in ActiveAttackBases)
 				ab.AttackTarget(target, AttackSource.AutoTarget, false, allowMove);
 		}
@@ -355,6 +402,12 @@ namespace OpenRA.Mods.Common.Traits
 			var chosenTarget = Target.Invalid;
 			var chosenTargetPriority = int.MinValue;
 			var chosenTargetRange = 0;
+
+			// When avoiding overkill we additionally track the best target that is not already saturated
+			// with committed damage, and prefer it over the outright best target.
+			var spreadTarget = Target.Invalid;
+			var spreadTargetPriority = int.MinValue;
+			var spreadTargetRange = 0;
 
 			var activePriorities = activeTargetPriorities.ToList();
 			if (activePriorities.Count == 0)
@@ -451,6 +504,17 @@ namespace OpenRA.Mods.Common.Traits
 
 				// Evaluate whether we want to target this actor
 				var targetRange = (target.CenterPosition - self.CenterPosition).Length;
+
+				// A target counts as over-committed once other attackers have reserved enough
+				// damage to destroy it, in which case we prefer to fire on something else.
+				var overCommitted = false;
+				if (overkillLedger != null && target.Type == TargetType.Actor)
+				{
+					var health = target.Actor.TraitOrDefault<Health>();
+					if (health != null)
+						overCommitted = overkillLedger.CommittedDamage(target.Actor, self) >= health.HP;
+				}
+
 				foreach (var ati in validPriorities)
 				{
 					if (chosenTarget.Type == TargetType.Invalid || chosenTargetPriority < ati.Priority
@@ -460,12 +524,21 @@ namespace OpenRA.Mods.Common.Traits
 						chosenTargetPriority = ati.Priority;
 						chosenTargetRange = targetRange;
 					}
+
+					if (!overCommitted && (spreadTarget.Type == TargetType.Invalid || spreadTargetPriority < ati.Priority
+						|| (spreadTargetPriority == ati.Priority && targetRange < spreadTargetRange)))
+					{
+						spreadTarget = target;
+						spreadTargetPriority = ati.Priority;
+						spreadTargetRange = targetRange;
+					}
 				}
 
 				validPriorities.Clear();
 			}
 
-			return chosenTarget;
+			// Prefer a not-yet-saturated target; fall back to the best target if everything is over-committed.
+			return spreadTarget.Type != TargetType.Invalid ? spreadTarget : chosenTarget;
 		}
 
 		static bool PreventsAutoTarget(Actor attacker, Actor target)
