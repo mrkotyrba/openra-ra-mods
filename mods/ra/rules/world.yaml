@@ -165,6 +165,7 @@
 World:
 	Inherits: ^BaseWorld
 	AutoTargetOverkillLedger:
+	AggressorTracker:
 	ChatCommands:
 	DevCommands:
 	DebugVisualizationCommands:

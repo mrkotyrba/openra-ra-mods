@@ -92,6 +92,11 @@ namespace OpenRA.Mods.Common.Traits
 			"against its target. Higher values make units spread out sooner, lower values focus fire more.")]
 		public readonly int OverkillReserveShots = 2;
 
+		[Desc("Priority bonus added to targets that are currently attacking this unit's owner",
+			"(they recently damaged one of the owner's units). Requires the AggressorTracker trait",
+			"on the world actor. 0 disables the bonus.")]
+		public readonly int AggressorPriorityBonus = 0;
+
 		[Desc("Display order for the stance dropdown in the map editor")]
 		public readonly int EditorStanceDisplayOrder = 1;
 
@@ -165,6 +170,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		AutoTargetOverkillLedger overkillLedger;
 		int overkillReserveAmount;
+		AggressorTracker aggressorTracker;
 
 		public void SetStance(Actor self, UnitStance value)
 		{
@@ -218,6 +224,8 @@ namespace OpenRA.Mods.Common.Traits
 			notifyStanceChanged = self.TraitsImplementing<INotifyStanceChanged>().ToArray();
 			ApplyStanceCondition(self);
 
+			aggressorTracker = self.World.WorldActor.TraitOrDefault<AggressorTracker>();
+
 			if (Info.PreventOverkill)
 			{
 				overkillLedger = self.World.WorldActor.TraitOrDefault<AutoTargetOverkillLedger>();
@@ -258,6 +266,12 @@ namespace OpenRA.Mods.Common.Traits
 
 		void INotifyDamage.Damaged(Actor self, AttackInfo e)
 		{
+			// Remember the attacker as a current threat so nearby units can prioritise it,
+			// even if this particular unit cannot (or should not) retaliate right now.
+			if (aggressorTracker != null && e.Damage.Value > 0 && e.Attacker != null
+				&& !e.Attacker.Disposed && e.Attacker.AppearsHostileTo(self))
+				aggressorTracker.ReportAttack(self.Owner, e.Attacker);
+
 			if (IsTraitDisabled || !self.IsIdle || Stance < UnitStance.ReturnFire)
 				return;
 
@@ -462,13 +476,19 @@ namespace OpenRA.Mods.Common.Traits
 				else
 					continue;
 
+				// Prefer targets that are currently attacking us (recently damaged our owner's units).
+				var threatBonus = 0;
+				if (aggressorTracker != null && Info.AggressorPriorityBonus != 0 && target.Type == TargetType.Actor
+					&& aggressorTracker.IsThreatTo(self.Owner, target.Actor))
+					threatBonus = Info.AggressorPriorityBonus;
+
 				foreach (var ati in activePriorities)
 				{
 					// Already have a higher priority target.
 					// When spreading fire we must still evaluate lower priorities, so that excess
 					// capacity can spill over onto a lower-priority target once the higher-priority
 					// ones are saturated with committed damage.
-					if (overkillLedger == null && ati.Priority < chosenTargetPriority)
+					if (overkillLedger == null && ati.Priority + threatBonus < chosenTargetPriority)
 						continue;
 
 					// Incompatible relationship
@@ -520,19 +540,19 @@ namespace OpenRA.Mods.Common.Traits
 
 				foreach (var ati in validPriorities)
 				{
-					if (chosenTarget.Type == TargetType.Invalid || chosenTargetPriority < ati.Priority
-						|| (chosenTargetPriority == ati.Priority && targetRange < chosenTargetRange))
+					if (chosenTarget.Type == TargetType.Invalid || chosenTargetPriority < ati.Priority + threatBonus
+						|| (chosenTargetPriority == ati.Priority + threatBonus && targetRange < chosenTargetRange))
 					{
 						chosenTarget = target;
-						chosenTargetPriority = ati.Priority;
+						chosenTargetPriority = ati.Priority + threatBonus;
 						chosenTargetRange = targetRange;
 					}
 
-					if (!overCommitted && (spreadTarget.Type == TargetType.Invalid || spreadTargetPriority < ati.Priority
-						|| (spreadTargetPriority == ati.Priority && targetRange < spreadTargetRange)))
+					if (!overCommitted && (spreadTarget.Type == TargetType.Invalid || spreadTargetPriority < ati.Priority + threatBonus
+						|| (spreadTargetPriority == ati.Priority + threatBonus && targetRange < spreadTargetRange)))
 					{
 						spreadTarget = target;
-						spreadTargetPriority = ati.Priority;
+						spreadTargetPriority = ati.Priority + threatBonus;
 						spreadTargetRange = targetRange;
 					}
 				}
