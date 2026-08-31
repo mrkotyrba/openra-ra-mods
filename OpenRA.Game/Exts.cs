@@ -542,6 +542,16 @@ namespace OpenRA
 			return int.TryParse(s, NumberStyles.Integer, NumberFormatInfo.InvariantInfo, out i);
 		}
 
+		// Sorts map players using the editor's "Multi0", "Multi1", ... naming convention; anything else sorts last.
+		public static int MultiplayerPlayerIndex(string internalName)
+		{
+			if (internalName != null && internalName.StartsWith("Multi", StringComparison.Ordinal)
+				&& TryParseInt32Invariant(internalName["Multi".Length..], out var index))
+				return index;
+
+			return int.MaxValue;
+		}
+
 		public static bool TryParseInt64Invariant(string s, out long i)
 		{
 			return long.TryParse(s, NumberStyles.Integer, NumberFormatInfo.InvariantInfo, out i);

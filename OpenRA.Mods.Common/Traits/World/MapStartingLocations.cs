@@ -128,12 +128,12 @@ namespace OpenRA.Mods.Common.Traits
 			separateTeamSpawns = self.World.LobbyInfo.GlobalSettings
 				.OptionOrDefault("separateteamspawns", info.SeparateTeamSpawnsCheckboxEnabled);
 
-			var spawns = new List<CPos>();
-			foreach (var n in self.World.Map.ActorDefinitions)
-				if (n.Value.Value == "mpspawn")
-					spawns.Add(new ActorReference(n.Key, n.Value).GetValue<LocationInit, CPos>());
-
-			spawnLocations = spawns.ToArray();
+			spawnLocations = self.World.Map.ActorDefinitions
+				.Where(n => n.Value.Value == "mpspawn")
+				.Select(n => new ActorReference(n.Key, n.Value))
+				.OrderBy(a => Exts.MultiplayerPlayerIndex(a.GetOrDefault<OwnerInit>()?.InternalName))
+				.Select(a => a.GetValue<LocationInit, CPos>())
+				.ToArray();
 
 			// Initialize the list of unoccupied spawn points for AssignSpawnLocations to pick from
 			availableSpawnPoints = LobbyUtils.AvailableSpawnPoints(spawnLocations.Length, self.World.LobbyInfo);

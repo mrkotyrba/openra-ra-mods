@@ -417,14 +417,12 @@ namespace OpenRA
 				// Actor definitions may change if the map format changes
 				if (yaml.TryGetValue("Actors", out var actorDefinitions))
 				{
-					var spawns = new List<CPos>();
-					foreach (var kv in actorDefinitions.Nodes.Where(d => d.Value.Value == "mpspawn"))
-					{
-						var s = new ActorReference(kv.Value.Value, kv.Value);
-						spawns.Add(s.Get<LocationInit>().Value);
-					}
-
-					newData.SpawnPoints = spawns.ToImmutableArray();
+					newData.SpawnPoints = actorDefinitions.Nodes
+						.Where(d => d.Value.Value == "mpspawn")
+						.Select(d => new ActorReference(d.Value.Value, d.Value))
+						.OrderBy(a => Exts.MultiplayerPlayerIndex(a.GetOrDefault<OwnerInit>()?.InternalName))
+						.Select(a => a.Get<LocationInit>().Value)
+						.ToImmutableArray();
 				}
 				else
 					newData.SpawnPoints = [];
